@@ -1,3 +1,4 @@
+
 import React,{Component,useState,useEffect}from 'react';
 import Hot from './components/Hot.jsx'
 import {BrowserRouter as Router,Route,Link,Redirect} from 'react-router-dom'
@@ -25,26 +26,6 @@ const routes = [
 
 
 
-function Example() {
-    const [isOnline, setIsOnline] = useState(null);
-
-    function handleStatusChange(status) {
-        setIsOnline(status.isOnline);
-    }
-
-    useEffect(() => {
-        ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
-
-        return () => {
-            ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
-        };
-    });
-
-    if (isOnline === null) {
-        return 'Loading...';
-    }
-    return isOnline ? 'Online' : 'Offline';
-}
 
 class Example2 extends Component{
     constructor(props){
@@ -108,7 +89,6 @@ class App extends Component{
 		      		
 		      		<ImgL></ImgL>
 		      	</C>
-                <Example/>
                 <Example2/>
 		      	{
 		      		routes.map((item,index)=>{
