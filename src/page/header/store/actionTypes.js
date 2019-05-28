@@ -1,0 +1,1 @@
+export const GET_HEADER_LIST = 'header/GET_HEADER_LIST';
