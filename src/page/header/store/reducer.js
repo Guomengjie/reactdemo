@@ -3,6 +3,7 @@ import * as actionTypes  from './actionTypes'
 
 const defaultState = fromJS({
     headerList:[],
+    content:'',
 });
 
 export default (state=defaultState,action) => {

@@ -10,7 +10,7 @@ function* fetchUser(action){
 	console.log(result)
 	yield put({
 		type:'INCREMENT',
-	})
+	});
 }
 
 

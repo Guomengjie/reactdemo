@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{Component,PureComponent} from 'react'
 import {
     ListItem,
 } from '../style'
@@ -9,12 +9,12 @@ class List extends Component{
     constructor(props){
         console.log('constructor');
         super(props)
-
-        const defaultProps  = {
-            color:'red',
-        }
+        console.log('ccc');
     }
-
+    
+    static defaultProps  = {
+        color:'red',
+    }
     // shouldComponentUpdate(parameters){
     //     let {nextProps, nextState} = parameters;
     //     if(this.props.color !== nextProps.color){
@@ -28,11 +28,13 @@ class List extends Component{
     // }
 
     render(){
-        console.log('render');
+        console.log(this.props.color);
+        const {list,color} = this.props;
         return (
             <div>
+                <p>{color}</p>
                 {
-                    this.props.list.map((item,index)=>{
+                    list.map((item,index)=>{
                         return (
                             <ListItem key={index}>{item}</ListItem>
                         )
@@ -42,9 +44,12 @@ class List extends Component{
         )
     }
 
+    componentWillMount(){
+        console.log('componentWillMount');
+        this.props.getHeaderList();
+    }
     componentDidMount(){
         console.log('componentDidMount');
-        this.props.getHeaderList();
     }
 }
 

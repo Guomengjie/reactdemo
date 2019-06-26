@@ -24,41 +24,88 @@ const routes = [
 	},
 ];
 
-
-
-
-class Example2 extends Component{
-    constructor(props){
+class Example extends React.Component {
+    constructor(props) {
         super(props);
-
         this.state = {
-            counter:0,
-        }
-
-        this.add = this.add.bind(this);
+            count: 0
+        };
     }
 
-    static defaultProps = {
-        increment:1,
+    componentDidMount() {
+        // document.title = `You clicked ${this.state.count} times`;
+        console.log(this.getDOMNode());
+        
     }
 
-    render(){
+    componentDidUpdate() {
+        document.title = `You clicked ${this.state.count} times`;
+    }
+
+    render() {
         return (
             <div>
-                <button onClick={this.add}>{this.state.counter}</button>
+                <p>You clicked {this.state.count} times</p>
+                <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+                    Click me
+                </button>
             </div>
-        )
+        );
+    }
+}
+
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setCount(count + 1); // 这个 effect 依赖于 `count` state
+            console.log(count)
+        }, 1000);
+
+        return () => clearInterval(id);
+    }, [count]); //  Bug: `count` 没有被指定为依赖
+
+    return <h1>{count}</h1>;
+}
+
+class Example2 extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0,
+            count2:0,
+        };
     }
 
+    // componentDidMount() {
+    //     document.title = `You clicked ${this.state.count} times`;
+    // }
 
-    add(){
-        this.setState((state, props) => ({
-            counter: state.counter + props.increment
-        }));
+
+    componentDidUpdate() {
+        document.title = `You clicked ${this.state.count} times`;
+    }
+
+    render() {
+        return (
+            <div>
+                <p>You clicked {this.state.count} times</p>
+                <p>{this.state.count2}</p>
+                <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+                    Click me
+                </button>
+            </div>
+        );
     }
 
 
 }
+
+const TargetComponent = React.forwardRef((props,ref) => {
+   return <input type="text" ref={ref} />
+})
 
 class App extends Component{
 	constructor(props){
@@ -68,28 +115,31 @@ class App extends Component{
 		this.state = {
 			time:new Date().toLocaleTimeString(),
 		};
-		this.check = React.createRef();
+        this.check = React.createRef();
+        this.ref = React.createRef();
 	}
 	
 	render(){
 		return (
 	  	<Router>
 		    <div>
+                <TargetComponent ref={this.ref} />
                 <GrobalStyle/>
-		      	<Link to={{pathname:'/hot'}}>热门板块</Link>
-		      	<Link to="/login">登录板块</Link>
-		      	<div onClick={this.props.create}>{this.props.num}</div>
-		      	<div>{this.state.time}</div>
-		      	<FlavorForm />
-		      	<Bar className="active">lallla</Bar>
-		      	
-		      	<input type="text" defaultValue="lalal" />
-		      	<input type="checkbox" defaultChecked="checked" ref={this.check}/>
-		      	<C left={<div>lalalla</div>}>
-		      		
-		      		<ImgL></ImgL>
-		      	</C>
+                <Link to={{pathname:'/hot'}}>热门板块</Link>
+                <Link to="/login">登录板块</Link>
+                <div onClick={this.props.create}>{this.props.num}</div>
+                <div>{this.state.time}</div>
+                <FlavorForm />
+                <Bar className="active">lallla</Bar>
+
+                <input type="text" defaultValue="lalal" />
+                <input type="checkbox" defaultChecked="checked" ref={this.check}/>
+                <C left={<div>lalalla</div>}>
+
+                    <ImgL></ImgL>
+                </C>
                 <Example2/>
+				{/*<Counter/>*/}
 		      	{
 		      		routes.map((item,index)=>{
 		      			if(item.exact){
@@ -99,6 +149,10 @@ class App extends Component{
 		      			}
 		      		})
 		      	}
+
+                {
+                    true ? <span>true</span> : <span>false</span>
+                }
 
 		      	<Header/>
 
@@ -114,6 +168,9 @@ class App extends Component{
 //	}
   	
   	componentDidMount(){
+         this.ref.current.value = 'asdf阿撒旦法地方'
+          
+          
   		const _that = this;
   		this.timeId = setInterval(function(){
   			_that.setState({
