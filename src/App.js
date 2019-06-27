@@ -21,6 +21,10 @@ const routes = [
 	{
 		path:'/login',
 		component:Login,
+    },
+    {
+		path:'/login',
+		component:Login,
 	},
 ];
 
@@ -107,7 +111,7 @@ const TargetComponent = React.forwardRef((props,ref) => {
    return <input type="text" ref={ref} />
 })
 
-class App extends Component{
+class App extends Component{        
 	constructor(props){
 		super(props);
 		
@@ -131,7 +135,7 @@ class App extends Component{
                 <div>{this.state.time}</div>
                 <FlavorForm />
                 <Bar className="active">lallla</Bar>
-
+                
                 <input type="text" defaultValue="lalal" />
                 <input type="checkbox" defaultChecked="checked" ref={this.check}/>
                 <C left={<div>lalalla</div>}>

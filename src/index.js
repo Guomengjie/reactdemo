@@ -5,11 +5,17 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import store from './store'
 import {GrobalStyle} from './style.js'
+import RouteMap from './components/routeMap'
+import {hashHistory} from 'react-router-dom'
+
 
 const MyApp = (
 	<Provider store={store}>
 		<App/>
 		<GrobalStyle></GrobalStyle>
+		<RouteMap history={hashHistory}>
+
+		</RouteMap>
 	</Provider>
 )
 
